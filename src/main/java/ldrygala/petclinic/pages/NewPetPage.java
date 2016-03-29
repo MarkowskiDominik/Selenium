@@ -21,7 +21,7 @@ public class NewPetPage extends AbstractPageObject {
 	}
 	
 	public NewPetPage setName(String in) {
-		name.sendKeys(in);
+        name.sendKeys(in);
 		return this;
 	}
 

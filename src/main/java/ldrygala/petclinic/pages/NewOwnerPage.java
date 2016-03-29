@@ -44,9 +44,9 @@ public class NewOwnerPage extends AbstractPageObject {
 		super(driver);
 	}
 	
-	public OwnarInfomrationPage clickAddOwnerButton() {
+	public OwnerInfomrationPage clickAddOwnerButton() {
 		addOwnerButton.click();
-		return PageFactory.initElements(driver, OwnarInfomrationPage.class);
+		return PageFactory.initElements(driver, OwnerInfomrationPage.class);
 	}
 
 }

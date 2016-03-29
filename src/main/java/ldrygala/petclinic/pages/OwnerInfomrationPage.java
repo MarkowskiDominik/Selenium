@@ -7,13 +7,13 @@ import org.openqa.selenium.support.PageFactory;
 
 import ldrygala.petclinic.AbstractPageObject;
 
-public class OwnarInfomrationPage extends AbstractPageObject {
+public class OwnerInfomrationPage extends AbstractPageObject {
 	@FindBy(linkText = "Edit Owner")
 	private WebElement editOwner;
 	@FindBy(linkText = "Add New Pet")
 	private WebElement addNewPet;
 
-	public OwnarInfomrationPage(WebDriver driver) {
+	public OwnerInfomrationPage(WebDriver driver) {
 		super(driver);
 	}
 	
