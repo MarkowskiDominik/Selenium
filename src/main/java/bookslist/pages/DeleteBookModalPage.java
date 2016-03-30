@@ -10,12 +10,24 @@ public class DeleteBookModalPage extends AbstractPageObject {
 	@FindBy(className = "modal-title")
 	private WebElement deleteBookModalPageHeader;
 
+	@FindBy(name = "deleteModal")
+	private WebElement deleteButton;
+	@FindBy(name = "cancel")
+	private WebElement cancelButton;
+
 	public DeleteBookModalPage(WebDriver driver) {
 		super(driver);
 	}
-	
+
 	public String getDeleteBookModalPageHeader() {
 		return deleteBookModalPageHeader.getText();
 	}
-	
+
+	public void clickDeleteButton() {
+		deleteButton.click();
+	}
+
+	public void clickCancelButton() {
+		cancelButton.click();
+	}
 }
