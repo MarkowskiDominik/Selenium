@@ -68,7 +68,7 @@ public class DialogAPage extends AbstractPageObject {
 	}
 
 	public Boolean isDisabledEditButton() {
-		return editBookButton.getAttribute("disabled") == "null" ? false : true;
+		return editBookButton.getAttribute("outerHTML").contains("disabled=\"disabled\"");
 	}
 	
 	public EditBookModalPage openEditBookModalDialog() {
@@ -77,7 +77,7 @@ public class DialogAPage extends AbstractPageObject {
 	}
 
 	public Boolean isDisabledDeleteButton() {
-		return deleteBookButton.getAttribute("disabled") == "null" ? false : true;
+		return deleteBookButton.getAttribute("outerHTML").contains("disabled=\"disabled\"");
 	}
 	
 	public DeleteBookModalPage openDeleteBookModalDialog() {
