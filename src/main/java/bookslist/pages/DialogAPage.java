@@ -10,19 +10,18 @@ import bookslist.AbstractPageObject;
 public class DialogAPage extends AbstractPageObject {
 	@FindBy(tagName = "h2")
 	private WebElement dialogAHeader;
-	
+
 	@FindBy(xpath = "//*/tbody/tr[1]")
 	private WebElement firstRow;
 	@FindBy(className = "active")
-	private WebElement activeRow;
+	private WebElement selectedRow;
 
 	@FindBy(xpath = "//*/tbody/tr[1]/td[1]")
 	private WebElement firstTitleFromTable;
 	@FindBy(xpath = "//*/tbody/tr[last()]/td[1]")
 	private WebElement lastTitleFromTable;
-	
+
 	@FindBy(className = "btn-primary")
-//	@FindBy(xpath = "/html/body/div[2]/div/section/button[1]")
 	private WebElement addBookButton;
 	@FindBy(className = "btn-success")
 	private WebElement editBookButton;
@@ -32,7 +31,7 @@ public class DialogAPage extends AbstractPageObject {
 	public DialogAPage(WebDriver driver) {
 		super(driver);
 	}
-	
+
 	public String getDialogAHeader() {
 		return dialogAHeader.getText();
 	}
@@ -41,8 +40,18 @@ public class DialogAPage extends AbstractPageObject {
 		firstRow.click();
 	}
 
+	public Boolean isSelectedRow() {
+		try {
+			selectedRow.getText();
+		}
+		catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
 	public WebElement getSelectedRow() {
-		return activeRow;
+		return selectedRow;
 	}
 
 	public String getFirstTitleFromTable() {
@@ -52,15 +61,23 @@ public class DialogAPage extends AbstractPageObject {
 	public String getLastTitleFromTable() {
 		return lastTitleFromTable.getText();
 	}
-	
+
 	public AddBookModalPage openAddBookModalDialog() {
 		addBookButton.click();
 		return PageFactory.initElements(driver, AddBookModalPage.class);
+	}
+
+	public Boolean isDisabledEditButton() {
+		return editBookButton.getAttribute("disabled") == "null" ? false : true;
 	}
 	
 	public EditBookModalPage openEditBookModalDialog() {
 		editBookButton.click();
 		return PageFactory.initElements(driver, EditBookModalPage.class);
+	}
+
+	public Boolean isDisabledDeleteButton() {
+		return deleteBookButton.getAttribute("disabled") == "null" ? false : true;
 	}
 	
 	public DeleteBookModalPage openDeleteBookModalDialog() {
