@@ -13,9 +13,9 @@ public class DialogBPage extends AbstractPageObject {
 	public DialogBPage(WebDriver driver) {
 		super(driver);
 	}
-	
+
 	public String getDialogBHeader() {
 		return dialogBHeader.getText();
 	}
-	
+
 }

@@ -20,10 +20,7 @@ public class DialogAPage extends AbstractPageObject {
 	private WebElement activeRow;
 	@FindBy(xpath = "//*/tbody/tr[last()]")
 	private WebElement lastRow;
-	@FindBys({
-		@FindBy(tagName = "tbody"),
-		@FindBy(tagName = "tr")
-	})
+	@FindBys({ @FindBy(tagName = "tbody"), @FindBy(tagName = "tr") })
 	private List<WebElement> allRows;
 
 	@FindBy(className = "btn-primary")
@@ -61,7 +58,7 @@ public class DialogAPage extends AbstractPageObject {
 	public WebElement getSelectedRow() {
 		return activeRow;
 	}
-	
+
 	public int getSelectedRowIndex() {
 		int index = 0;
 		for (WebElement row : allRows) {

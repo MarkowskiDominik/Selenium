@@ -10,7 +10,7 @@ public class DeleteBookModalPage extends AbstractPageObject {
 	@FindBy(className = "modal-title")
 	private WebElement deleteBookModalPageHeader;
 
-	@FindBy(name = "deleteModal")
+	@FindBy(name = "delete")
 	private WebElement deleteButton;
 	@FindBy(name = "cancel")
 	private WebElement cancelButton;

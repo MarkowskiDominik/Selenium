@@ -24,19 +24,19 @@ public class WelcomePageTest extends AbstractSelenium {
 		assertFalse(welcomePage.hasError());
 		assertEquals("Hello from Dialog A!", welcomePage.clickLinkDialogA().getDialogAHeader());
 	}
-	
+
 	@Test
 	public void openDialogBPageByLink() {
 		assertFalse(welcomePage.hasError());
 		assertEquals("Hello from Dialog B!", welcomePage.clickLinkDialogB().getDialogBHeader());
 	}
-	
+
 	@Test
 	public void openDialogAPageByNavbar() {
 		assertFalse(welcomePage.hasError());
 		assertEquals("Hello from Dialog A!", welcomePage.clickNavbarDialogA().getDialogAHeader());
 	}
-	
+
 	@Test
 	public void openDialogBPageByNavbar() {
 		assertFalse(welcomePage.hasError());

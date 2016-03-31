@@ -8,12 +8,10 @@ import org.junit.runners.model.Statement;
 
 public class SeleniumScreenshotJUnit4Runner extends BlockJUnit4ClassRunner {
 
-
-	public SeleniumScreenshotJUnit4Runner(Class<AbstractSelenium> clazz)
-			throws InitializationError {
+	public SeleniumScreenshotJUnit4Runner(Class<AbstractSelenium> clazz) throws InitializationError {
 		super(clazz);
 	}
-	
+
 	@Override
 	protected Statement methodInvoker(final FrameworkMethod method, final Object test) {
 		return new InvokeMethod(method, test) {
@@ -22,8 +20,8 @@ public class SeleniumScreenshotJUnit4Runner extends BlockJUnit4ClassRunner {
 				try {
 					super.evaluate();
 				} catch (Throwable throwable) {
-                    ((AbstractSelenium)test).takeScreenshot();
-                    throw throwable;
+					((AbstractSelenium) test).takeScreenshot();
+					throw throwable;
 				}
 			}
 		};

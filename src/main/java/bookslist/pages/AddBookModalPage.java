@@ -40,7 +40,7 @@ public class AddBookModalPage extends AbstractPageObject {
 		this.title.sendKeys(title);
 		return this;
 	}
-	
+
 	public Boolean isRequiredTitle() {
 		return title.getAttribute("outerHTML").contains("required=\"required\"");
 	}

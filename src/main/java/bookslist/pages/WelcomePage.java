@@ -7,14 +7,14 @@ import org.openqa.selenium.support.PageFactory;
 
 import bookslist.AbstractPageObject;
 
-public class WelcomePage extends AbstractPageObject{
-	@FindBy(linkText="dialog A")
+public class WelcomePage extends AbstractPageObject {
+	@FindBy(linkText = "dialog A")
 	private WebElement linkDialogA;
-	@FindBy(linkText="dialog B")
+	@FindBy(linkText = "dialog B")
 	private WebElement linkDialogB;
-	@FindBy(linkText="Dialog A")
+	@FindBy(linkText = "Dialog A")
 	private WebElement navbarDialogA;
-	@FindBy(linkText="Dialog B")
+	@FindBy(linkText = "Dialog B")
 	private WebElement navbarDialogB;
 
 	public WelcomePage(WebDriver driver) {
@@ -26,17 +26,17 @@ public class WelcomePage extends AbstractPageObject{
 		linkDialogA.click();
 		return PageFactory.initElements(driver, DialogAPage.class);
 	}
-	
+
 	public DialogBPage clickLinkDialogB() {
 		linkDialogB.click();
 		return PageFactory.initElements(driver, DialogBPage.class);
 	}
-	
+
 	public DialogAPage clickNavbarDialogA() {
 		navbarDialogA.click();
 		return PageFactory.initElements(driver, DialogAPage.class);
 	}
-	
+
 	public DialogBPage clickNavbarDialogB() {
 		navbarDialogB.click();
 		return PageFactory.initElements(driver, DialogBPage.class);

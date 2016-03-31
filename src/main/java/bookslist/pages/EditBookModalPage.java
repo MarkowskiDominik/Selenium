@@ -49,6 +49,10 @@ public class EditBookModalPage extends AbstractPageObject {
 		return this;
 	}
 
+	public Boolean isRequiredTitle() {
+		return title.getAttribute("outerHTML").contains("required=\"required\"");
+	}
+
 	public WebElement getAuthor() {
 		return author;
 	}
@@ -56,6 +60,10 @@ public class EditBookModalPage extends AbstractPageObject {
 	public EditBookModalPage setAuthor(String author) {
 		this.author.sendKeys(author);
 		return this;
+	}
+
+	public Boolean isRequiredAuthor() {
+		return author.getAttribute("outerHTML").contains("required=\"required\"");
 	}
 
 	public WebElement getYear() {

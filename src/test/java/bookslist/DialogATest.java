@@ -34,7 +34,7 @@ public class DialogATest extends AbstractSelenium {
 	public void dialogAPageHeader() {
 		assertEquals("Hello from Dialog A!", dialogAPage.getDialogAHeader());
 	}
-	
+
 	@Test
 	public void firstRowFromTable() {
 		assertEquals("Code Complete Steve McConnell", dialogAPage.getFirstRow().getText());
@@ -42,13 +42,14 @@ public class DialogATest extends AbstractSelenium {
 
 	@Test
 	public void lastRowFromTable() {
-		assertEquals("Wzorce projektowe Erich Gamma, Ralph Johnson, Richard Helm, John Vlissides", dialogAPage.getLastRow().getText());
+		assertEquals("Wzorce projektowe Erich Gamma, Ralph Johnson, Richard Helm, John Vlissides",
+				dialogAPage.getLastRow().getText());
 	}
-	
+
 	@Test
 	public void selectRow() {
 		dialogAPage.selectFirstRow();
-		
+
 		assertTrue(dialogAPage.isSelectedRow());
 		assertEquals("Code Complete Steve McConnell", dialogAPage.getSelectedRow().getText());
 	}
@@ -57,17 +58,17 @@ public class DialogATest extends AbstractSelenium {
 	public void unselectRow() {
 		dialogAPage.selectFirstRow();
 		assertTrue(dialogAPage.isSelectedRow());
-		
+
 		dialogAPage.selectFirstRow();
 		assertFalse(dialogAPage.isSelectedRow());
 	}
-	
+
 	@Test
 	public void selectAnotherRow() {
 		dialogAPage.selectFirstRow();
 		assertTrue(dialogAPage.isSelectedRow());
 		int selectedIndex = dialogAPage.getSelectedRowIndex();
-		
+
 		dialogAPage.selectLastRow();
 		assertTrue(dialogAPage.isSelectedRow());
 		assertFalse(selectedIndex == dialogAPage.getSelectedRowIndex());
@@ -78,32 +79,33 @@ public class DialogATest extends AbstractSelenium {
 		dialogAPage.selectFirstRow();
 		assertTrue(dialogAPage.isSelectedRow());
 		dialogAPage.openDeleteBookModalDialog().clickCancelButton();
-		
+
 		assertTrue(dialogAPage.isSelectedRow());
 	}
+
 	@Test
 	public void openAddBookModalPage() {
 		assertFalse(dialogAPage.openAddBookModalDialog().hasError());
 	}
-	
+
 	@Test
 	public void openAddBookModalPageAndCancel() {
 		int numberOfRows = dialogAPage.getAllRows().size();
-		
+
 		dialogAPage.openAddBookModalDialog().clickCancelButton();
 		assertEquals(numberOfRows, dialogAPage.getAllRows().size());
 	}
-	
+
 	@Test
 	public void openAddBookModalPageEnterDataAndSave() {
 		int numberOfRows = dialogAPage.getAllRows().size();
-		
+
 		dialogAPage.openAddBookModalDialog().setTitle("title").setAuthor("author").clickSaveButton();
-		
+
 		assertFalse(numberOfRows == dialogAPage.getAllRows().size());
 		assertEquals("title author", dialogAPage.getLastRow().getText());
 	}
-	
+
 	@Test
 	public void openEditBookModalPageNoSelectedRow() {
 		assertFalse(dialogAPage.isSelectedRow());
@@ -115,30 +117,30 @@ public class DialogATest extends AbstractSelenium {
 		dialogAPage.selectFirstRow();
 		assertFalse(dialogAPage.openEditBookModalDialog().hasError());
 	}
-	
+
 	@Test
 	public void openEditBookModalPageAndCancel() {
 		int numberOfRows = dialogAPage.getAllRows().size();
-		
+
 		dialogAPage.selectFirstRow();
 		dialogAPage.openEditBookModalDialog().clickCancelButton();
-		
+
 		assertEquals(numberOfRows, dialogAPage.getAllRows().size());
 	}
 
 	@Test
 	public void openEditBookModalPageEditDataAndSave() {
 		int numberOfRows = dialogAPage.getAllRows().size();
-		
+
 		dialogAPage.selectFirstRow();
 		EditBookModalPage editBookModalPage = dialogAPage.openEditBookModalDialog();
 		editBookModalPage.getTitle().clear();
 		editBookModalPage.setTitle("title").clickSaveButton();
-		
+
 		assertEquals(numberOfRows, dialogAPage.getAllRows().size());
 		assertEquals("title Steve McConnell", dialogAPage.getFirstRow().getText());
 	}
-	
+
 	@Test
 	public void openEditBookModalPageTwoTimesAndTestVersionIncrement() {
 		dialogAPage.selectFirstRow();
@@ -147,7 +149,7 @@ public class DialogATest extends AbstractSelenium {
 		editBookModalPage.clickSaveButton();
 
 		editBookModalPage = dialogAPage.openEditBookModalDialog();
-		assertEquals(version+1, Integer.parseInt(editBookModalPage.getVersion().getAttribute("value")));
+		assertEquals(version + 1, Integer.parseInt(editBookModalPage.getVersion().getAttribute("value")));
 	}
 
 	@Test
@@ -165,21 +167,21 @@ public class DialogATest extends AbstractSelenium {
 	@Test
 	public void openDeleteBookModalPageAndCancel() {
 		int numberOfRows = dialogAPage.getAllRows().size();
-		
+
 		dialogAPage.selectLastRow();
 		dialogAPage.openDeleteBookModalDialog().clickCancelButton();
-		
+
 		assertEquals(numberOfRows, dialogAPage.getAllRows().size());
 	}
-	
+
 	@Test
 	public void openDeleteBookModalPageAndDelete() {
 		int numberOfRows = dialogAPage.getAllRows().size();
 		String lastRow = dialogAPage.getLastRow().getText();
-		
+
 		dialogAPage.selectLastRow();
 		dialogAPage.openDeleteBookModalDialog().clickDeleteButton();
-		
+
 		assertFalse(numberOfRows == dialogAPage.getAllRows().size());
 		assertFalse(lastRow.equals(dialogAPage.getLastRow().getText()));
 	}
