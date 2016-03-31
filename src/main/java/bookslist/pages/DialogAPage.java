@@ -1,8 +1,11 @@
 package bookslist.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
 import org.openqa.selenium.support.PageFactory;
 
 import bookslist.AbstractPageObject;
@@ -14,12 +17,14 @@ public class DialogAPage extends AbstractPageObject {
 	@FindBy(xpath = "//*/tbody/tr[1]")
 	private WebElement firstRow;
 	@FindBy(className = "active")
-	private WebElement selectedRow;
-
-	@FindBy(xpath = "//*/tbody/tr[1]/td[1]")
-	private WebElement firstTitleFromTable;
-	@FindBy(xpath = "//*/tbody/tr[last()]/td[1]")
-	private WebElement lastTitleFromTable;
+	private WebElement activeRow;
+	@FindBy(xpath = "//*/tbody/tr[last()]")
+	private WebElement lastRow;
+	@FindBys({
+		@FindBy(tagName = "tbody"),
+		@FindBy(tagName = "tr")
+	})
+	private List<WebElement> allRows;
 
 	@FindBy(className = "btn-primary")
 	private WebElement addBookButton;
@@ -40,26 +45,44 @@ public class DialogAPage extends AbstractPageObject {
 		firstRow.click();
 	}
 
+	public void selectLastRow() {
+		lastRow.click();
+	}
+
 	public Boolean isSelectedRow() {
-		try {
-			selectedRow.getText();
+		for (WebElement row : allRows) {
+			if (row.getAttribute("class").contains("active")) {
+				return true;
+			}
 		}
-		catch (Exception e) {
-			return false;
-		}
-		return true;
+		return false;
 	}
 
 	public WebElement getSelectedRow() {
-		return selectedRow;
+		return activeRow;
+	}
+	
+	public int getSelectedRowIndex() {
+		int index = 0;
+		for (WebElement row : allRows) {
+			if (row.getAttribute("class").contains("active")) {
+				return index;
+			}
+			index++;
+		}
+		return index;
 	}
 
-	public String getFirstTitleFromTable() {
-		return firstTitleFromTable.getText();
+	public WebElement getFirstRow() {
+		return firstRow;
 	}
 
-	public String getLastTitleFromTable() {
-		return lastTitleFromTable.getText();
+	public WebElement getLastRow() {
+		return lastRow;
+	}
+
+	public List<WebElement> getAllRows() {
+		return allRows;
 	}
 
 	public AddBookModalPage openAddBookModalDialog() {
@@ -70,7 +93,7 @@ public class DialogAPage extends AbstractPageObject {
 	public Boolean isDisabledEditButton() {
 		return editBookButton.getAttribute("outerHTML").contains("disabled=\"disabled\"");
 	}
-	
+
 	public EditBookModalPage openEditBookModalDialog() {
 		editBookButton.click();
 		return PageFactory.initElements(driver, EditBookModalPage.class);
@@ -79,7 +102,7 @@ public class DialogAPage extends AbstractPageObject {
 	public Boolean isDisabledDeleteButton() {
 		return deleteBookButton.getAttribute("outerHTML").contains("disabled=\"disabled\"");
 	}
-	
+
 	public DeleteBookModalPage openDeleteBookModalDialog() {
 		deleteBookButton.click();
 		return PageFactory.initElements(driver, DeleteBookModalPage.class);
