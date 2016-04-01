@@ -17,31 +17,34 @@ public class WebDriverFactory {
 	}
 
 	public static WebDriver getWebDriver(browser browserName) {
-		String driversDirPath = "resources/drivers";
-		WebDriver driver = null;
+		String driversDirPath = "src/main/resources/drivers";
+		WebDriver driver;
 
 		switch (browserName) {
 		case CHROME:
 			System.setProperty("webdriver.chrome.driver", driversDirPath + "\\chromedriver.exe");
-			driver = getDriver(DesiredCapabilities.chrome());
+			driver = getWebDriver(DesiredCapabilities.chrome());
 			break;
 		case FIREFOX:
-			driver = getDriver(DesiredCapabilities.firefox());
+			driver = getWebDriver(DesiredCapabilities.firefox());
 			break;
 		case IE:
 			System.setProperty("webdriver.ie.driver", driversDirPath + "\\IEDriverServer.exe");
-			driver = getDriver(DesiredCapabilities.internetExplorer());
+			driver = getWebDriver(DesiredCapabilities.internetExplorer());
 			break;
 		case OPERA:
-			driver = getDriver(DesiredCapabilities.opera());
+			driver = getWebDriver(DesiredCapabilities.opera());
 			break;
+		default:
+			System.setProperty("webdriver.chrome.driver", driversDirPath + "\\chromedriver.exe");
+			driver = getWebDriver(DesiredCapabilities.chrome());
 		}
 
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
 		return driver;
 	}
 
-	public static WebDriver getDriver(Capabilities capabilities) {
+	private static WebDriver getWebDriver(Capabilities capabilities) {
 		String browserType = capabilities.getBrowserName();
 		if (browserType.equals("firefox"))
 			return new FirefoxDriver(capabilities);
