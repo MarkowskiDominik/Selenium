@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit book</h3>
+        </div>
+        <div class="modal-body">
+            <form name="bookForm">
+                <label class="control-label">Id: </label>
+    			<div class="form-group">
+                    <input name="idInput" class="form-control" data-ng-required="true" data-ng-disabled="true" type="number" data-ng-model="data.editBook.id"/>
+                </div>
+
+                <label class="control-label">Tytuł: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.titleInput.$invalid}">
+                    <input name="titleInput" class=" form-control" data-ng-required="true" type="text" data-ng-model="data.editBook.title"/>
+                </div>
+
+                <label class="control-label">Autor: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.authorInput.$invalid}">
+                    <input name="authorInput" class="form-control" data-ng-required="true" type="text" data-ng-model="data.editBook.author"/>
+                </div>
+
+                <label class="control-label">Rok: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.yearInput.$invalid}">
+                    <input name="yearInput" class="form-control" type="number" min="1900" data-ng-max="data.nextYear" data-ng-model="data.editBook.year"/>
+                </div>
+
+                <label class="control-label">Gatunek: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.genreInput.$invalid}">
+                    <input name="genreInput" class="form-control" type="text" data-ng-model="data.editBook.genre"/>
+                </div>
+
+                <label class="control-label">Wersja: </label>
+    			<div class="form-group">
+                    <input name="versionInput" class="form-control" data-ng-required="true" data-ng-disabled="true" type="number" data-ng-model="data.editBook.version"/>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button name="save" class="btn btn-primary" data-ng-click="save()"
+                data-ng-disabled="bookForm.$invalid">Save</button>
+            <button name="cancel" class="btn btn-danger" data-ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</body>
+</html>

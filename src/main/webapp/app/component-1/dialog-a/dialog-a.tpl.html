@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <section>
+        <h2>Hello from Dialog A!</h2>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <th>Title</th>
+                <th>Author</th>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="book in data.books" data-ng-click="selectedRow($index)" data-ng-class="{'active': selectedRowIndex === $index}" >
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" data-ng-click="add()">Dodaj</button>
+        <button class="btn btn-success" data-ng-click="edit()" data-ng-disabled="selectedRowIndex === undefined">Edytuj</button>
+        <button class="btn btn-danger" data-ng-click="delete()" data-ng-disabled="selectedRowIndex === undefined">Usuń</button>
+        <!-- <img src="main/img/Koala.jpg"/> -->
+    </section>
+</body>
+</html>

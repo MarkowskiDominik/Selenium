@@ -22,6 +22,12 @@
         	<artifactId>operadriver</artifactId>
         	<version>1.5</version>
         </dependency>
+        <dependency>
+        	<groupId>com.github.eirslett</groupId>
+        	<artifactId>frontend-maven-plugin</artifactId>
+        	<version>0.0.29</version>
+        	<type>maven-plugin</type>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -96,6 +102,68 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>0.0.29</version>
+				<configuration>
+			        <workingDirectory>src/main/webapp</workingDirectory>
+			    </configuration>
+		        <executions>
+		 
+		            <execution>
+		                <id>install node and npm</id>
+		                <goals>
+		                    <goal>install-node-and-npm</goal>
+		                </goals>
+		                <configuration>
+		                    <nodeVersion>v0.12.13</nodeVersion>
+		                    <npmVersion>2.15.1</npmVersion>
+		                </configuration>
+		            </execution>
+		 
+		            <execution>
+		                <id>npm install</id>
+		                <goals>
+		                    <goal>npm</goal>
+		                </goals>
+		                <configuration>
+		                    <arguments>install</arguments>
+		                </configuration>
+		            </execution>
+		 
+		            <execution>
+		                <id>bower install</id>
+		                <goals>
+		                    <goal>bower</goal>
+		                </goals>
+		                <configuration>
+		                    <arguments>install -g</arguments>
+		                </configuration>
+		            </execution>
+		 
+		            <execution>
+		                <id>gulp install</id>
+		                <goals>
+		                    <goal>gulp</goal>
+		                </goals>
+		                <configuration>
+		                    <arguments>install -g</arguments>
+		                </configuration>
+		            </execution>
+		 
+		            <execution>
+		                <id>gulp serve</id>
+		                <goals>
+		                    <goal>gulp</goal>
+		                </goals>
+		                <configuration>
+		                    <arguments>serve</arguments>
+		                </configuration>
+		            </execution>
+		 
+		        </executions>
 			</plugin>
 		</plugins>
 	</build>

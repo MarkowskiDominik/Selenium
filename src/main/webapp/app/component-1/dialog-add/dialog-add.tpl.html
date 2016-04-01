@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Add book</h3>
+        </div>
+        <div class="modal-body">
+            <form name="bookForm">
+                <label class="control-label">Tytuł: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.titleInput.$invalid && bookForm.titleInput.$dirty}">
+                    <input name="titleInput" class=" form-control" data-ng-required="true" type="text" data-ng-model="data.addBook.title"/>
+                </div>
+
+                <label class="control-label">Autor: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.authorInput.$invalid && bookForm.authorInput.$dirty}">
+                    <input name="authorInput" class="form-control" data-ng-required="true" type="text" data-ng-model="data.addBook.author"/>
+                </div>
+
+                <label class="control-label">Rok: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.yearInput.$invalid}">
+                    <input name="yearInput" class="form-control" type="number" min="1900" data-ng-max="data.nextYear" data-ng-model="data.addBook.year"/>
+                </div>
+
+                <label class="control-label">Gatunek: </label>
+    			<div class="form-group" data-ng-class="{'has-error bg-danger': bookForm.genreInput.$invalid}">
+                    <input name="genreInput" class="form-control" type="text" data-ng-model="data.addBook.genre"/>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button name="save" class="btn btn-primary" data-ng-click="save()"
+                data-ng-disabled="bookForm.$invalid">Save</button>
+            <button name="cancel" class="btn btn-danger" data-ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+</body>
+</html>
