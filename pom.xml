@@ -67,43 +67,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.10</version>
-				<configuration>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<stopKey>foo</stopKey>
-					<stopPort>9999</stopPort>
-					<webApp>${basedir}/target/petclinic.war</webApp>
-					<systemProperties>
-						<systemproperty>
-							<name>jetty.port</name>
-							<value>9081</value>
-						</systemproperty>
-					</systemProperties>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-jetty</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>run-war</goal>
-						</goals>
-						<configuration>
-							<scanIntervalSeconds>0</scanIntervalSeconds>
-							<daemon>true</daemon>
-						</configuration>
-					</execution>
-					<execution>
-						<id>stop-jetty</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>0.0.29</version>
@@ -111,7 +74,7 @@
 			        <workingDirectory>src/main/webapp</workingDirectory>
 			    </configuration>
 		        <executions>
-		 
+
 		            <execution>
 		                <id>install node and npm</id>
 		                <goals>
@@ -122,7 +85,7 @@
 		                    <npmVersion>2.15.1</npmVersion>
 		                </configuration>
 		            </execution>
-		 
+
 		            <execution>
 		                <id>npm install</id>
 		                <goals>
@@ -132,37 +95,38 @@
 		                    <arguments>install</arguments>
 		                </configuration>
 		            </execution>
-		 <!--
+
 		            <execution>
 		                <id>bower install</id>
 		                <goals>
-		                    <goal>bower</goal>
+		                    <goal>npm</goal>
 		                </goals>
 		                <configuration>
-		                    <arguments>install</arguments>
+		                    <arguments>install bower</arguments>
 		                </configuration>
 		            </execution>
-		 
+
 		            <execution>
 		                <id>gulp install</id>
 		                <goals>
-		                    <goal>gulp</goal>
+		                    <goal>npm</goal>
 		                </goals>
 		                <configuration>
-		                    <arguments>install</arguments>
+		                    <arguments>install gulp</arguments>
 		                </configuration>
 		            </execution>
-		 
+
 		            <execution>
 		                <id>gulp serve</id>
+		                <!-- <phase>pre-integration-test</phase> -->
 		                <goals>
 		                    <goal>gulp</goal>
 		                </goals>
 		                <configuration>
-		                    <arguments>serve</arguments>
+			                <arguments>serve</arguments>
 		                </configuration>
 		            </execution>
-		 -->
+
 		        </executions>
 			</plugin>
 		</plugins>
