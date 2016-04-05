@@ -12,26 +12,105 @@
 			<artifactId>selenium-java</artifactId>
 			<version>2.39.0</version>
 		</dependency>
-        <dependency>
+
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 		</dependency>
-        <dependency>
-        	<groupId>com.opera</groupId>
-        	<artifactId>operadriver</artifactId>
-        	<version>1.5</version>
-        </dependency>
-        <dependency>
-        	<groupId>com.github.eirslett</groupId>
-        	<artifactId>frontend-maven-plugin</artifactId>
-        	<version>0.0.29</version>
-        	<type>maven-plugin</type>
-        </dependency>
+
+		<dependency>
+			<groupId>com.opera</groupId>
+			<artifactId>operadriver</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.eirslett</groupId>
+			<artifactId>frontend-maven-plugin</artifactId>
+			<version>0.0.29</version>
+			<type>maven-plugin</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-antrun-plugin</artifactId>
+			<version>1.8</version>
+			<type>maven-plugin</type>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- initialize -->
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>0.0.29</version>
+				<configuration>
+					<workingDirectory>${basedir}\src\main\webapp</workingDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v0.12.13</nodeVersion>
+							<npmVersion>2.15.1</npmVersion>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>npm install</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>gulp install</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install gulp</arguments>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<!-- run gulp server -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<exec executable="cmd" dir="${basedir}/src/main/webapp" spawn="true">
+									<arg value="gulp_serve.bat" />
+								</exec>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- test phase -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -40,6 +119,8 @@
 					<skip>false</skip>
 				</configuration>
 			</plugin>
+
+			<!-- integration-test phase -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
@@ -50,7 +131,6 @@
 						<goals>
 							<goal>integration-test</goal>
 						</goals>
-
 					</execution>
 					<execution>
 						<id>verify</id>
@@ -66,70 +146,6 @@
 					</includes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>0.0.29</version>
-				<configuration>
-			        <workingDirectory>src/main/webapp</workingDirectory>
-			    </configuration>
-		        <executions>
-
-		            <execution>
-		                <id>install node and npm</id>
-		                <goals>
-		                    <goal>install-node-and-npm</goal>
-		                </goals>
-		                <configuration>
-		                    <nodeVersion>v0.12.13</nodeVersion>
-		                    <npmVersion>2.15.1</npmVersion>
-		                </configuration>
-		            </execution>
-
-		            <execution>
-		                <id>npm install</id>
-		                <goals>
-		                    <goal>npm</goal>
-		                </goals>
-		                <configuration>
-		                    <arguments>install</arguments>
-		                </configuration>
-		            </execution>
-
-		            <execution>
-		                <id>bower install</id>
-		                <goals>
-		                    <goal>npm</goal>
-		                </goals>
-		                <configuration>
-		                    <arguments>install bower</arguments>
-		                </configuration>
-		            </execution>
-
-		            <execution>
-		                <id>gulp install</id>
-		                <goals>
-		                    <goal>npm</goal>
-		                </goals>
-		                <configuration>
-		                    <arguments>install gulp</arguments>
-		                </configuration>
-		            </execution>
-
-		            <execution>
-		                <id>gulp serve</id>
-		                <!-- <phase>pre-integration-test</phase> -->
-		                <goals>
-		                    <goal>gulp</goal>
-		                </goals>
-		                <configuration>
-			                <arguments>serve</arguments>
-		                </configuration>
-		            </execution>
-
-		        </executions>
-			</plugin>
 		</plugins>
 	</build>
-
 </project>
