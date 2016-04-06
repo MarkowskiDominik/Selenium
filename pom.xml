@@ -74,17 +74,6 @@
 						</configuration>
 					</execution>
 
-					<execution>
-						<id>gulp install</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>install gulp</arguments>
-						</configuration>
-					</execution>
-
 				</executions>
 			</plugin>
 
@@ -101,9 +90,22 @@
 						</goals>
 						<configuration>
 							<target>
-								<exec executable="cmd" dir="${basedir}/src/main/webapp" spawn="true">
-									<arg value="gulp_serve.bat" />
-								</exec>
+								<parallel>
+									<sequential>
+										<echo message="${basedir}\src\main\webapp" />
+									</sequential>
+									<sequential>
+										<exec executable="cmd" dir="${basedir}\src\main\webapp" spawn="true">
+											<arg line="/c gulp_serve.bat" />
+										</exec>
+									</sequential>
+									<sequential>
+										<waitfor maxwait="2" maxwaitunit="minute" checkevery="500">
+											<http url="http://localhost:9000/" />
+										</waitfor>
+										<echo message="####### GULP SERVE IS STARTED #######" />
+									</sequential>
+								</parallel>
 							</target>
 						</configuration>
 					</execution>
@@ -115,37 +117,19 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.19.1</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit47</artifactId>
+						<version>2.19.1</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<skip>false</skip>
+					<threadCount>1</threadCount>
 				</configuration>
 			</plugin>
 
-			<!-- integration-test phase -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.19.1</version>
-				<executions>
-					<execution>
-						<id>integration-test</id>
-						<goals>
-							<goal>integration-test</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>verify</id>
-						<goals>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 </project>

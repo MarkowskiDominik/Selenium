@@ -1,2 +1,2 @@
-#!/bin/sh
-start gulp serve
+#!/bin/bash
+gulp serve
